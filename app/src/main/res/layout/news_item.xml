@@ -1,0 +1,128 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="de.r_baeumer.mvvmsample.news.item.NewsItemViewModel"/>
+
+        <variable
+            name="controller"
+            type="de.r_baeumer.mvvmsample.news.item.NewsItemController"/>
+
+        <variable
+            name="glide"
+            type="com.bumptech.glide.Glide"/>
+    </data>
+
+        <android.support.constraint.ConstraintLayout
+        android:id="@+id/outerContraint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="80dp"
+                tools:layout_editor_absoluteX="80dp"
+                tools:layout_editor_absoluteY="81dp"/>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardView"
+                style="@style/MyCardView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="@+id/guideline2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="8dp"
+                tools:layout_constraintRight_creator="1"
+                tools:layout_constraintLeft_creator="1">
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="80dp"
+                        android:layout_height="0dp"
+                        app:srcCompat="@mipmap/ic_launcher"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginRight="8dp"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintBottom_toBottomOf="@+id/url"
+                        android:layout_marginBottom="0dp"
+                        bind:imageUrl="@{viewModel.imageUrl}"/>
+
+                    <TextView
+                        android:id="@+id/name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.name}"
+                        tools:text="Name"
+                        android:layout_marginLeft="8dp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintRight_toLeftOf="@+id/imageView"
+                        android:layout_marginRight="8dp"/>
+
+                    <TextView
+                        android:id="@+id/url"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:onClick="@{controller.onClickUrl()}"
+                        android:text="@{viewModel.url}"
+                        android:textColor="@color/colorSecondaryDark"
+                        tools:text="URL"
+                        android:layout_marginLeft="8dp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintTop_toBottomOf="@+id/name"
+                        app:layout_constraintRight_toLeftOf="@+id/imageView"
+                        android:layout_marginRight="8dp"
+                        app:layout_constraintHorizontal_bias="1.0"/>
+
+                </android.support.constraint.ConstraintLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <TextView
+                android:id="@+id/newsId"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@{viewModel.newsId}"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/guideline2"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="News Id"
+                app:layout_constraintHorizontal_bias="1.0"
+                tools:layout_constraintRight_creator="1"
+                tools:layout_constraintLeft_creator="1"/>
+
+
+        </android.support.constraint.ConstraintLayout>
+
+
+</layout>
