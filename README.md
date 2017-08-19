@@ -27,15 +27,17 @@ It will focus on architectural design not on ui.
 ---
 **Why MVVM patter?**
 
-I think, if we use dependency injection to inject POJOs into Android related classes (and others) it is so easy to
+If we use dependency injection to inject POJOs into Android related classes (and others) it is so easy to
 separate Android from plain Java. That makes it very easy to test. You can just create the POJOs ( ViewModel,
-ViewController, BusinessModell, ServiceImplementation), wire them together and test them. This way you can test the
+ViewController, BusinessModell, ServiceImplementation), wire them up and test them. This way you can test the
 business, the state of the view and even user interactions like a button click.
 
 It makes it easy to run TDD. E. g. you can mock the service and inject it into your DAO or DataModel (how ever you call it).
 Create the controller and inject the DAO and the ViewModel. There you are. Now you can create test with a mocked input and test
 the outcome on the ViewModel. If you only use constructor injection you even do not need Dagger 2 for the injection, you can
 do this in the @Before method.
+
+With a mocking framework you do not even need to inject objects via dagger. Maybe this will be taken into account later.
 
 
 ## Responsibility
