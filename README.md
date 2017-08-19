@@ -1,15 +1,15 @@
 # MVVM Sample
 This is a MVVM Sample project with different frameworks and a full stack android app.
 
-It is calling the [HubbleSite.org] API and is creating a List with the latest 25 news headlines and loading an image to each news item.
+It is calling the [HubbleSite.org](http://hubblesite.org/) API and is creating a List with the latest 25 news headlines and loading an image to each news item.
 
 Frameworks and there responsibility
-* [Dagger 2]: Dependency Injection, swap classes for testing and support a well design app structure
-* [Retrofikt]: Calling the API Service and transform them to Entities. It is also used to mock network requests and simulate network behavior
-* [RxAndroid2]: In this project it is only to handle the API Responses asynchronislly
-* [Data Binding]: Binding of the ViewModel to the XML layout file.
-* Unit tests with [Robolectric]: Robolectric to mock the Android System and get the context.
-* Instrumental tests with [Espresso]: Running UI / Instrumental tests
+* [Dagger 2](https://google.github.io/dagger/): Dependency Injection, swap classes for testing and support a well design app structure
+* [Retrofit](http://square.github.io/retrofit/): Calling the API Service and transform them to Entities. It is also used to mock network requests and simulate network behavior
+* [RxAndroid2](https://github.com/ReactiveX/RxAndroid): In this project it is only to handle the API Responses asynchroniuslly
+* [Data Binding](https://developer.android.com/topic/libraries/data-binding/index.html): Binding of the ViewModel to the XML layout file.
+* Unit tests with [Robolectric](http://robolectric.org/): Robolectric to mock the Android System and get the context.
+* Instrumental tests with [Espresso](https://developer.android.com/training/testing/espresso/index.html): Running UI / Instrumental tests
 
 Mocking in UI tests is done by implementing an extention of the services and integrate them via Dagger 2
 
