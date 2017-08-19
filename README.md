@@ -69,7 +69,7 @@ Type: POJO
 
 Type: POJO
 
-<img src="img/controller.png" width=150">
+<img src="img/controller.png" width="150">
 * Create View Model
 * Update View Model
 * Request Business Model
@@ -82,7 +82,7 @@ Type: POJO
 Type: POJO
 
 
-<img src="img/businessmodel.png" width=150">
+<img src="img/businessmodel.png" width="150">
 * Implement use cases
 * CRUD operations on data via Data Model
 
