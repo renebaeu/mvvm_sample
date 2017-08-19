@@ -50,4 +50,6 @@ public class NewsActivity extends AppCompatActivity {
         DaggerReferenceContainer.setComponent(null);
         super.onDestroy();
     }
+
+
 }

@@ -17,12 +17,14 @@ import de.r_baeumer.mvvmsample.news.item.NewsItemController;
 import de.r_baeumer.mvvmsample.news.item.NewsItemViewModel;
 import de.r_baeumer.mvvmsample.news.item.UrlClickListener;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.observers.DisposableSingleObserver;
+import io.reactivex.disposables.Disposable;
 
-public class NewsController implements UrlClickListener {
+import static android.content.ContentValues.TAG;
+
+public class NewsController implements UrlClickListener, ControllerLiveCycleMethods {
 
     private Context context;
+    private Disposable newsDaoDisposable;
 
     @Inject
     NewsDao newsDao;
@@ -36,28 +38,28 @@ public class NewsController implements UrlClickListener {
     }
 
     public void updateNews() {
-        newsDao.news()
+        if (newsDaoDisposable != null) newsDaoDisposable.dispose();
+        newsDaoDisposable = newsDao.news()
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableSingleObserver<List<News>>() {
-                    @Override
-                    public void onSuccess(@NonNull List<News> newsList) {
-                        newsList.remove(0);
-                        List<NewsItemController> controllers = new ArrayList<>();
-                        for (News news : newsList) {
-                            NewsItemController controller = new NewsItemController.Builder(NewsController.this, new NewsItemViewModel(news))
-                                    .setUrlClickListener(NewsController.this)
-                                    .build();
-                            controllers.add(controller);
-                        }
-                        viewModel.update(controllers);
-                        viewModel.notifyDataSetChangened();
-                    }
+                .subscribe(this::updateAdapterItems,
+                        this::logError);
+    }
 
-                    @Override
-                    public void onError(@NonNull Throwable e) {
-                        Log.d(this.getClass().getSimpleName(), "onError: ", e);
-                    }
-                });
+    private int logError(Throwable error) {
+        return Log.e(TAG, "updateNews: ", error);
+    }
+
+    private void updateAdapterItems(List<News> newsList) {
+        newsList.remove(0);
+        List<NewsItemController> controllers = new ArrayList<>();
+        for (News news : newsList) {
+            NewsItemController controller = new NewsItemController.Builder(NewsController.this, new NewsItemViewModel(news))
+                    .setUrlClickListener(NewsController.this)
+                    .build();
+            controllers.add(controller);
+        }
+        viewModel.update(controllers);
+        viewModel.notifyDataSetChangened();
     }
 
 
@@ -69,6 +71,17 @@ public class NewsController implements UrlClickListener {
     public void onUrlClicked(String url) {
         Uri uri = Uri.parse(url);
         Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uri);
-        context.startActivity( launchBrowser);
+        context.startActivity(launchBrowser);
+    }
+
+
+    @Override
+    public void init() {
+        //nothing to init
+    }
+
+    @Override
+    public void deInit() {
+        newsDaoDisposable.dispose();
     }
 }
